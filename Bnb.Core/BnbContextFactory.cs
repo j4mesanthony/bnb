@@ -10,6 +10,7 @@ namespace Bnb.Core
         public BnbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<BnbContext>();
+            // TODO: Use connection string from app.settings
             optionsBuilder.UseSqlServer("Server=localhost;Initial Catalog=Bnb2025;User Id=sa;Password=p@ssw0rd;MultipleActiveResultSets=True;Timeout=30;Encrypt=False");
 
             return new BnbContext(optionsBuilder.Options);
