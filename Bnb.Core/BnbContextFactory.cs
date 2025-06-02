@@ -8,9 +8,6 @@ namespace Bnb.Core
     {
         public BnbContext CreateDbContext(string[] args)
         {
-
-            var basePath = AppDomain.CurrentDomain.BaseDirectory;
-            
             var config = new ConfigurationBuilder()
                 .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "..", "Bnb.Api"))
                 .AddJsonFile(AppConstants.SettingsFile)
