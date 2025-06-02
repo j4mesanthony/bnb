@@ -5,7 +5,6 @@ namespace Bnb.Core;
 
 public class BnbContext(DbContextOptions<BnbContext> options) : DbContext(options)
 {
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {}
 
     public DbSet<Booking> Bookings { get; set; }
     public DbSet<Guest> Guests { get; set; }

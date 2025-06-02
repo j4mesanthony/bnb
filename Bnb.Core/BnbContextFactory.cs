@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using System.IO;
 
 namespace Bnb.Core
 {
@@ -9,9 +8,16 @@ namespace Bnb.Core
     {
         public BnbContext CreateDbContext(string[] args)
         {
+
+            var basePath = AppDomain.CurrentDomain.BaseDirectory;
+            
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "..", "Bnb.Api"))
+                .AddJsonFile(AppConstants.SettingsFile)
+                .Build();
+            
             var optionsBuilder = new DbContextOptionsBuilder<BnbContext>();
-            // TODO: Use connection string from app.settings
-            optionsBuilder.UseSqlServer("Server=localhost;Initial Catalog=Bnb2025;User Id=sa;Password=p@ssw0rd;MultipleActiveResultSets=True;Timeout=30;Encrypt=False");
+            optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
 
             return new BnbContext(optionsBuilder.Options);
         }
