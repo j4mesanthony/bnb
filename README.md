@@ -6,7 +6,7 @@ A full-stack web application for managing a bed-and-breakfast business. This pro
 
 - **Bnb.Api/**: ASP.NET Core Web API backend
 - **Bnb.Core/**: Entity Framework DbContext configuration and data migrations
-- **Bnb.Entities/**: Entity models and enums
+- **Bnb.Entities/**: Entity models and related enums
 - **Bnb.App/**: React + TypeScript frontend
 
 ## Prerequisites
