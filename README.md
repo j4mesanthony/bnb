@@ -1,6 +1,6 @@
 # bnb
 
-A full-stack web application for managing a bed-and-breakfast (BnB) business. This project includes a .NET 9 Web API backend and a React + TypeScript frontend.
+A full-stack web application for managing a bed-and-breakfast business. This project includes a .NET 9 Web API backend and a React + TypeScript frontend.
 
 ## Project Structure
 
