@@ -25,7 +25,8 @@ namespace Bnb.Api
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            return await _context.Users.ToListAsync();
+            var result = await _context.Users.ToListAsync();
+            return Ok(result);
         }
 
         // GET: api/User/5
