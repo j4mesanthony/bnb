@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bnb.Core", "Bnb.Core\Bnb.Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bnb.Api", "Bnb.Api\Bnb.Api.csproj", "{ABBF8419-C7A4-42D2-ADA6-FB30E2803D8B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bnb.UnitTests", "Bnb.UnitTests\Bnb.UnitTests.csproj", "{86CF003A-C6C3-4100-BFD7-F8DCB15927BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{ABBF8419-C7A4-42D2-ADA6-FB30E2803D8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABBF8419-C7A4-42D2-ADA6-FB30E2803D8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABBF8419-C7A4-42D2-ADA6-FB30E2803D8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86CF003A-C6C3-4100-BFD7-F8DCB15927BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86CF003A-C6C3-4100-BFD7-F8DCB15927BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86CF003A-C6C3-4100-BFD7-F8DCB15927BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86CF003A-C6C3-4100-BFD7-F8DCB15927BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
