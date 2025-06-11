@@ -20,6 +20,8 @@ jobs:
 
       - name: Install dependencies
         run: npm i
+        working-directory: Bnb.App
 
       - name: Run Vitest
         run: npx vitest run
+        working-directory: Bnb.App
