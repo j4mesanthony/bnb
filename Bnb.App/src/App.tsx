@@ -1,27 +1,21 @@
-import { useEffect, useState } from "react";
+import { useFetch } from "./hooks/useFetch";
 
 type UserModel = {
   id: number;
   age: number;
   email: string;
   firstName: string;
-  // gender: Gender;
   lastName: string;
   phone?: string | null;
+  // gender: Gender;
   // userType: UserType;
 };
 
 function App() {
-  const [users, setUsers] = useState<UserModel[]>([]);
   const apiBase = `${import.meta.env.VITE_API_BASE}/api`;
   const endpoint = `${apiBase}/user`;
 
-  useEffect(() => {
-    fetch(endpoint)
-      .then((res) => res.json())
-      .then((data: UserModel[]) => setUsers(data))
-      .catch(console.error);
-  }, [endpoint]);
+  const { data } = useFetch<UserModel[]>(endpoint);
 
   return (
     <>
@@ -29,7 +23,7 @@ function App() {
         Hello.
       </h1>
       <h1 className="text-4xl font-bold text-red-700 w-full text-center">
-        {users.length} users.
+        {data?.length} users.
       </h1>
     </>
   );
