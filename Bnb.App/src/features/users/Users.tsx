@@ -1,4 +1,4 @@
-import { useFetch } from "../hooks/useFetch";
+import { useFetch } from "../../hooks/useFetch";
 import type { UserModel } from "./models/UserModel";
 import UserList from "./UserList";
 
