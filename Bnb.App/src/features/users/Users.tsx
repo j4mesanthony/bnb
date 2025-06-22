@@ -1,5 +1,5 @@
 import { useUsers } from "./hooks/useUsers";
-import UserList from "./UserList";
+import UserList from "./components/UserList";
 
 export default function Users() {
   const { data } = useUsers();

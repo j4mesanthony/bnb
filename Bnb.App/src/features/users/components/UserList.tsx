@@ -1,4 +1,4 @@
-import type { UserModel } from "./models/UserModel";
+import type { UserModel } from "../models/UserModel";
 
 export default function UserList({ users = [] }: { users: UserModel[] }) {
   return (
