@@ -1,6 +1,10 @@
 import type { UserModel } from "../models/UserModel";
 
-export default function UserList({ users = [] }: { users: UserModel[] }) {
+type UserListProps = {
+  users: UserModel[];
+};
+
+export default function UserList({ users = [] }: UserListProps) {
   return (
     <>
       <h3>Users:</h3>
