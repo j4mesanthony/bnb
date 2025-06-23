@@ -1,17 +1,22 @@
 type DataInputProps = {
-  label?: string | null;
   handleChange: (arg: string | number) => void;
+  id: string;
+  label?: string | null;
 };
 
-export default function DataInput({ label, handleChange }: DataInputProps) {
+export default function DataInput({
+  handleChange,
+  id,
+  label = "",
+}: DataInputProps) {
   return (
     <>
       <div className=" flex flex-col gap-1">
-        {!!label && <span data-testid="datainput-label">{label}:</span>}
+        {!!label && <label htmlFor={id}>{label}</label>}
         <input
+          id={id}
           type="text"
           onChange={(e) => handleChange(e.target.value)}
-          data-testid="datainput-input"
         />
       </div>
     </>

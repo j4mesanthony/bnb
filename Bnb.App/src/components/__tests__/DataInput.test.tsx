@@ -4,12 +4,12 @@ import DataInput from "../DataInput";
 
 describe("DataInput", () => {
   it("renders component with label", () => {
-    const { getByTestId } = render(
-      <DataInput label="Surname" handleChange={() => {}} />
+    const { getByText, getByRole } = render(
+      <DataInput id="surname" label="Surname" handleChange={() => {}} />
     );
 
-    const label = getByTestId("datainput-label");
-    const input = getByTestId("datainput-input");
+    const label = getByText("Surname");
+    const input = getByRole("textbox");
 
     expect(label).toBeDefined();
     expect(input).toBeDefined();
