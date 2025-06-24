@@ -5,7 +5,13 @@ export default defineConfig({
     environment: "jsdom",
     coverage: {
       include: ["src/**"],
-      exclude: ["src/App.tsx", "src/main.tsx", "src/vite-env.d.ts", "src/features/*/*.tsx"],
+      exclude: [
+        "src/App.tsx",
+        "src/main.tsx",
+        "src/vite-env.d.ts",
+        "src/features/*/*.tsx",
+        "src/features/*/models/**",
+      ],
     },
   },
 });
