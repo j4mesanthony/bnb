@@ -4,13 +4,13 @@ import UserList from "../components/UserList";
 import type { UserModel } from "../models/UserModel";
 
 describe("UserList", () => {
-  it("renders without any users", () => {
+  it("should render with correct heading when no users provided", () => {
     render(<UserList users={[]} />);
     const heading = screen.getByRole("heading", { name: /users/i });
     expect(heading.textContent).toBe("No users");
   });
 
-  it("renders with one user", () => {
+  it("should render one user with correct heading", () => {
     const user: UserModel = {
       id: 1,
       age: 39,
@@ -23,7 +23,7 @@ describe("UserList", () => {
     expect(heading).toBeDefined();
   });
 
-  it("renders with multiple users", () => {
+  it("should render multiple users with correct heading", () => {
     const user1: UserModel = {
       id: 1,
       age: 39,
