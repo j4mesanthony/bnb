@@ -8,11 +8,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Bnb.Core;
 using Bnb.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Bnb.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly BnbContext _context;
