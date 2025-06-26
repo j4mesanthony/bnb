@@ -161,6 +161,10 @@ namespace Bnb.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
@@ -170,19 +174,6 @@ namespace Bnb.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Age = 39,
-                            Email = "test@test.com",
-                            FirstName = "James",
-                            Gender = 1,
-                            LastName = "Anthony",
-                            Phone = "+61412345678",
-                            UserType = 0
-                        });
                 });
 #pragma warning restore 612, 618
         }
