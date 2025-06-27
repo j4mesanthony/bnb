@@ -10,16 +10,9 @@ namespace Bnb.Api;
 
 [Route("api/[controller]")]
 [ApiController]
-public class AuthenticationController : ControllerBase
+public class AuthenticationController(BnbContext context, IConfiguration configuration) : ControllerBase
 {
-    private readonly BnbContext _context;
-    private readonly IConfiguration _configuration;
-
-    public AuthenticationController(BnbContext context, IConfiguration configuration)
-    {
-        _context = context;
-        _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-    }
+    private readonly IConfiguration _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
 
     [HttpPost]
     public ActionResult Authenticate(AuthenticationAttemptDto dto)
@@ -55,7 +48,7 @@ public class AuthenticationController : ControllerBase
 
     public User? ValidateUserCredentials(string email, string password)
     {
-        var user = _context.Users.FirstOrDefault(x => x.Email == email);
+        var user = context.Users.FirstOrDefault(x => x.Email == email);
         return user;
     }
     
