@@ -11,7 +11,7 @@ namespace Bnb.Api;
 
 [Route("api/[controller]")]
 [ApiController]
-public class AuthenticationController(BnbContext context, IConfiguration configuration) : ControllerBase
+public class AuthenticationController : ControllerBase
 {
 
     private readonly BnbContext _context;
