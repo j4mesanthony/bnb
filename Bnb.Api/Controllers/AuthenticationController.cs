@@ -50,6 +50,8 @@ public class AuthenticationController(BnbContext context, IConfiguration configu
     public User? ValidateUserCredentials(string email, string providedPassword)
     {
         var user = context.Users.FirstOrDefault(x => x.Email == email);
+        if (user == null) return null;
+        
         var hasher = new PasswordHasher<User>();
         var isMatch = hasher.VerifyHashedPassword(user, user.PasswordHash, providedPassword) == PasswordVerificationResult.Success;
         
