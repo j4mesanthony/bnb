@@ -12,5 +12,5 @@ public class User
     public string? Phone { get; set; }
     public required string Email { get; set; }
     public required string PasswordHash { get; set; }
-    public UserType UserType { get; set; } = UserType.Administrator;
+    public UserType UserType { get; set; } = UserType.User;
 }
