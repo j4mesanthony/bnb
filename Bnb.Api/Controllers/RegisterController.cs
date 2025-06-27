@@ -31,13 +31,7 @@ public class RegisterController(BnbContext context) : ControllerBase
         context.Users.Add(newUser);
         await context.SaveChangesAsync();
         
-        return CreatedAtAction("Register", new UserDto
-        {
-            Id = newUser.Id,
-            FirstName = newUser.FirstName,
-            LastName = newUser.LastName,
-            Email = newUser.Email
-        });
+        return Created();
     }
 
     private static string HashPassword(User user, string password)
