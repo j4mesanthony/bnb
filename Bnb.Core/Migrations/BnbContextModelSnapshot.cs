@@ -143,7 +143,7 @@ namespace Bnb.Core.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Age")
+                    b.Property<int?>("Age")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -154,7 +154,7 @@ namespace Bnb.Core.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Gender")
+                    b.Property<int?>("Gender")
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")
