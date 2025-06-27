@@ -1,6 +1,8 @@
 using Bnb.Api.Dtos.Requests;
 using Bnb.Api.Dtos.Responses;
 using Bnb.Core;
+using Bnb.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bnb.Api;
@@ -17,24 +19,37 @@ public class RegisterController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<string> Register(RegisterUserDto dto)
+    public async Task<ActionResult<UserDto>> Register(RegisterUserDto dto)
     {
         var user = _context.Users.FirstOrDefault(x => x.Email.ToLower() == dto.Email.ToLower());
         if (user != null) return Conflict("User already exists!");
-        
-        // TODO: Hash password and insert into newUser instance below.
-        
-        return CreatedAtAction("Register", new UserDto
+
+        var newUser = new User
         {
-            Id = 1,
             FirstName = dto.FirstName,
             LastName = dto.LastName,
             Email = dto.Email,
+            PasswordHash = "",
+        };
+
+        newUser.PasswordHash = HashPassword(newUser, dto.Password);
+        
+        _context.Users.Add(newUser);
+        await _context.SaveChangesAsync();
+        
+        return CreatedAtAction("Register", new UserDto
+        {
+            Id = newUser.Id,
+            FirstName = newUser.FirstName,
+            LastName = newUser.LastName,
+            Email = newUser.Email,
         });
     }
 
-    // private string HashPassword(User user, string password)
-    // {
-    //     return "wut.";
-    // }
+    private string HashPassword(User user, string password)
+    {
+        var hasher = new PasswordHasher<User>();
+        var hashed = hasher.HashPassword(user, password);
+        return hashed;
+    }
 }
