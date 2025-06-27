@@ -4,6 +4,7 @@ using Bnb.Core;
 using Bnb.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bnb.Api;
 
@@ -14,7 +15,7 @@ public class RegisterController(BnbContext context) : ControllerBase
     [HttpPost]
     public async Task<ActionResult<UserDto>> Register(RegisterUserDto dto)
     {
-        var user = context.Users.FirstOrDefault(x => x.Email.ToLower() == dto.Email.ToLower());
+        var user = await context.Users.FirstOrDefaultAsync(x => x.Email.ToLower() == dto.Email.ToLower());
         if (user != null) return Conflict("User already exists!");
 
         var newUser = new User
