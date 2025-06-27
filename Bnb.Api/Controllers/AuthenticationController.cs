@@ -3,6 +3,7 @@ using System.Security.Claims;
 using Bnb.Api.Dtos.Requests;
 using Bnb.Core;
 using Bnb.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -37,7 +38,7 @@ public class AuthenticationController(BnbContext context, IConfiguration configu
             _configuration["Authentication:Audience"],
             claims,
             DateTime.UtcNow,
-            DateTime.UtcNow.AddHours(1),
+            DateTime.UtcNow.AddMinutes(10),
             signingCredentials);
         
         // Write token
@@ -46,10 +47,13 @@ public class AuthenticationController(BnbContext context, IConfiguration configu
         return Ok(token);
     }
 
-    public User? ValidateUserCredentials(string email, string password)
+    public User? ValidateUserCredentials(string email, string providedPassword)
     {
         var user = context.Users.FirstOrDefault(x => x.Email == email);
-        return user;
+        var hasher = new PasswordHasher<User>();
+        var isMatch = hasher.VerifyHashedPassword(user, user.PasswordHash, providedPassword) == PasswordVerificationResult.Success;
+        
+        return isMatch ? user : null;
     }
     
 }

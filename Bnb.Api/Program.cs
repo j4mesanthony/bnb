@@ -14,7 +14,7 @@ builder.Services.AddDbContext<BnbContext>(
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer(options =>
     {
-        options.TokenValidationParameters = new()
+        options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
             ValidateAudience = true,
@@ -37,7 +37,5 @@ app.UseCors(opts =>
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
