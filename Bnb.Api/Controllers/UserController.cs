@@ -7,19 +7,12 @@ namespace Bnb.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController(BnbContext context) : ControllerBase
     {
-        private readonly BnbContext _context;
-
-        public UserController(BnbContext context)
-        {
-            _context = context;
-        }
-
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers()
         {
-            var users = await _context.Users.ToListAsync();
+            var users = await context.Users.ToListAsync();
             var dto = users.Select(x => new UserDto
             {
                 Id = x.Id,
@@ -36,7 +29,7 @@ namespace Bnb.Api
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> GetUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await context.Users.FindAsync(id);
 
             if (user == null)
             {
