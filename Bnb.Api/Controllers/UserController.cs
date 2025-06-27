@@ -27,7 +27,7 @@ namespace Bnb.Api
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserDto>> GetUser(int id)
+        public async Task<ActionResult<UserDto>> GetUserById(int id)
         {
             var user = await context.Users.FindAsync(id);
 
