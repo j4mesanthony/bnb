@@ -9,19 +9,12 @@ namespace Bnb.Api;
 
 [Route("api/[controller]")]
 [ApiController]
-public class RegisterController : ControllerBase
+public class RegisterController(BnbContext context) : ControllerBase
 {
-    private readonly BnbContext _context;
-    
-    public RegisterController(BnbContext context)
-    {
-        _context = context;
-    }
-
     [HttpPost]
     public async Task<ActionResult<UserDto>> Register(RegisterUserDto dto)
     {
-        var user = _context.Users.FirstOrDefault(x => x.Email.ToLower() == dto.Email.ToLower());
+        var user = context.Users.FirstOrDefault(x => x.Email.ToLower() == dto.Email.ToLower());
         if (user != null) return Conflict("User already exists!");
 
         var newUser = new User
@@ -29,24 +22,25 @@ public class RegisterController : ControllerBase
             FirstName = dto.FirstName,
             LastName = dto.LastName,
             Email = dto.Email,
-            PasswordHash = "",
+            PasswordHash = ""
         };
 
-        newUser.PasswordHash = HashPassword(newUser, dto.Password);
+        var passwordHash = HashPassword(newUser, dto.Password);
+        newUser.PasswordHash = passwordHash;
         
-        _context.Users.Add(newUser);
-        await _context.SaveChangesAsync();
+        context.Users.Add(newUser);
+        await context.SaveChangesAsync();
         
         return CreatedAtAction("Register", new UserDto
         {
             Id = newUser.Id,
             FirstName = newUser.FirstName,
             LastName = newUser.LastName,
-            Email = newUser.Email,
+            Email = newUser.Email
         });
     }
 
-    private string HashPassword(User user, string password)
+    private static string HashPassword(User user, string password)
     {
         var hasher = new PasswordHasher<User>();
         var hashed = hasher.HashPassword(user, password);
