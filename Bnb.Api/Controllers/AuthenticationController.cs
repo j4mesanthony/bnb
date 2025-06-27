@@ -30,7 +30,7 @@ public class AuthenticationController : ControllerBase
         if (user == null) return Unauthorized();
 
         // Create token signature
-        var key = Convert.FromBase64String(_configuration["Authentication:SecretForKey"]);
+        var key = Convert.FromBase64String(_configuration["Authentication:JwtSigningKey"]);
         var securityKey = new SymmetricSecurityKey(key);
         var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
