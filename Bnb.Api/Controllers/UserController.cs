@@ -2,11 +2,14 @@ using Bnb.Api.Dtos.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Bnb.Core;
+using Bnb.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Bnb.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController(BnbContext context) : ControllerBase
     {
         [HttpGet]

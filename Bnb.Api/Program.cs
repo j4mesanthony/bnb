@@ -1,5 +1,6 @@
 using Bnb.Core;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,10 +11,21 @@ builder.Services.AddDbContext<BnbContext>(
         .EnableSensitiveDataLogging()
         .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
-var app = builder.Build();
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Authentication:Issuer"],
+            ValidAudience = builder.Configuration["Authentication:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(builder.Configuration["Authentication:JwtSigningKey"]))
+        };
+    });
 
-// Configure the HTTP request pipeline (Middleware)
-app.UseHttpsRedirection();
+var app = builder.Build();
 
 app.UseCors(opts =>
 {
@@ -22,8 +34,8 @@ app.UseCors(opts =>
     opts.AllowAnyMethod();
 });
 
+app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
