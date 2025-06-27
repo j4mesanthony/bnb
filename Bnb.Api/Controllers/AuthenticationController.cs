@@ -13,7 +13,15 @@ namespace Bnb.Api;
 [ApiController]
 public class AuthenticationController(BnbContext context, IConfiguration configuration) : ControllerBase
 {
-    private readonly IConfiguration _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+
+    private readonly BnbContext _context;
+    private readonly IConfiguration _configuration;
+    
+    public AuthenticationController(BnbContext context, IConfiguration configuration)
+    {
+        _context = context;
+        _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+    }
 
     [HttpPost]
     public ActionResult Authenticate(AuthenticationAttemptDto dto)
@@ -49,7 +57,7 @@ public class AuthenticationController(BnbContext context, IConfiguration configu
 
     public User? ValidateUserCredentials(string email, string providedPassword)
     {
-        var user = context.Users.FirstOrDefault(x => x.Email == email);
+        var user = _context.Users.FirstOrDefault(x => x.Email == email);
         if (user == null) return null;
         
         var hasher = new PasswordHasher<User>();
