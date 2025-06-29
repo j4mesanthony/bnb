@@ -2,6 +2,8 @@ import DataInput from "../../components/DataInput";
 import PrimaryButton from "../../components/PrimaryButton";
 
 export default function AuthenticateView() {
+  const handleLogin = () => console.log("login!");
+
   return (
     <>
       <div className="flex justify-center items-center min-h-screen">
@@ -26,7 +28,7 @@ export default function AuthenticateView() {
             />
           </div>
 
-          <PrimaryButton>Login</PrimaryButton>
+          <PrimaryButton handleClick={handleLogin}>Login</PrimaryButton>
         </div>
       </div>
     </>
