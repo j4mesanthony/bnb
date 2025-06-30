@@ -4,10 +4,10 @@ type ApiHandler = {
 };
 
 export const apiHandler: ApiHandler = {
-  get: <T>(url: string, options = {}) => {
+  get: <T>(url: string, options: RequestInit = {}) => {
     const opts = {
       method: "GET",
-      headers: { Accept: "application/json" },
+      headers: { Accept: "application/json", ...(options.headers || {}) },
       ...options,
     };
     return fetch(url, opts).then((response) =>
