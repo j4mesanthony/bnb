@@ -16,10 +16,10 @@ export const apiHandler: ApiHandler = {
   },
 
   responseHandler: <T>(response: Response): Promise<T> => {
-    const { ok, status } = response;
+    const { ok, status, url } = response;
 
     if (!ok) {
-      throw new Error(`HTTP Error! ${status}`);
+      throw new Error(`HTTP Error! STATUS: ${status}, URL: ${url}`);
     } else {
       return response.json();
     }
