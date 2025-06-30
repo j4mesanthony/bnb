@@ -5,16 +5,16 @@ type ApiHandler = {
 };
 
 export const apiHandler: ApiHandler = {
-  get: function (
+  get: (
     url: string,
     options = { method: "GET", headers: { Accept: "application/json" } }
-  ) {
+  ) => {
     return fetch(url, options)
-      .then(this.responseHandler)
-      .catch(this.errorHandler);
+      .then(apiHandler.responseHandler)
+      .catch(apiHandler.errorHandler);
   },
 
-  responseHandler: function (response: Response) {
+  responseHandler: (response: Response) => {
     const { ok, status } = response;
 
     if (!ok) {
