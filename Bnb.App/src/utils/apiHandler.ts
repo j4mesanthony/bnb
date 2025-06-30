@@ -1,31 +1,28 @@
 type ApiHandler = {
-  get: <T>(url: string, options?: RequestInit) => Promise<T>;
-  post: <T>(url: string, dto: T, options?: RequestInit) => Promise<T>;
+  get: <T>(url: string) => Promise<T>;
+  post: <T>(url: string, dto: T) => Promise<T>;
   responseHandler: <T>(response: Response) => Promise<T>;
 };
 
 export const apiHandler: ApiHandler = {
-  get: <T>(url: string, options: RequestInit = {}) => {
+  get: <T>(url: string) => {
     const opts = {
       method: "GET",
-      headers: { Accept: "application/json", ...(options.headers || {}) },
-      ...options,
+      headers: { Accept: "application/json" },
     };
     return fetch(url, opts).then((response) =>
       apiHandler.responseHandler<T>(response)
     );
   },
 
-  post: <T>(url: string, dto: T, options: RequestInit = {}) => {
+  post: <T>(url: string, dto: T) => {
     const opts = {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        ...(options.headers || {}),
       },
       body: JSON.stringify(dto),
-      ...options,
     };
 
     return fetch(url, opts).then((response) =>
