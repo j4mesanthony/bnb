@@ -1,34 +1,27 @@
 type ApiHandler = {
-  errorHandler: (error: Error) => void;
-  get: (url: string, options?: RequestInit) => Promise<Response>;
-  responseHandler: (response: Response) => void;
+  get: <T>(url: string, options?: RequestInit) => Promise<T>;
+  responseHandler: <T>(response: Response) => Promise<T>;
 };
 
 export const apiHandler: ApiHandler = {
-  get: (
-    url: string,
-    options = { method: "GET", headers: { Accept: "application/json" } }
-  ) => {
-    return fetch(url, options)
-      .then(apiHandler.responseHandler)
-      .catch(apiHandler.errorHandler);
+  get: <T>(url: string, options = {}) => {
+    const opts = {
+      method: "GET",
+      headers: { Accept: "application/json" },
+      ...options,
+    };
+    return fetch(url, opts).then((response) =>
+      apiHandler.responseHandler<T>(response)
+    );
   },
 
-  responseHandler: (response: Response) => {
+  responseHandler: <T>(response: Response): Promise<T> => {
     const { ok, status } = response;
 
     if (!ok) {
       throw new Error(`HTTP Error! ${status}`);
     } else {
-      return response;
-    }
-  },
-
-  errorHandler: function (error: unknown) {
-    if (error instanceof Error) {
-      console.error(error.message);
-    } else {
-      console.error(error);
+      return response.json();
     }
   },
 };
