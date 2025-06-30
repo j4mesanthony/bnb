@@ -1,7 +1,7 @@
 type ApiHandler = {
   errorHandler: (error: Error) => void;
   get: (url: string, options?: RequestInit) => Promise<void>;
-  responseHandler: (reponse: Response) => void;
+  responseHandler: (response: Response) => void;
 };
 
 export const apiHandler: ApiHandler = {
