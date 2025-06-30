@@ -1,6 +1,6 @@
 type ApiHandler = {
   errorHandler: (error: Error) => void;
-  get: (url: string, options?: RequestInit) => Promise<void>;
+  get: (url: string, options?: RequestInit) => Promise<Response>;
   responseHandler: (response: Response) => void;
 };
 
