@@ -5,7 +5,7 @@ type FetchResult<T> = {
   data: T | undefined;
 };
 
-export function useGetData<T>(url: string): FetchResult<T> {
+export function useFetchOnMount<T>(url: string): FetchResult<T> {
   const [data, setData] = useState<T>();
 
   useEffect(() => {
