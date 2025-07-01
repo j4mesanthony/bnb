@@ -9,7 +9,12 @@ export default function AuthenticateView() {
       <div className="flex justify-center items-center min-h-screen">
         <div className="w-full max-w-md">
           <div className="mb-5">
-            <DataInput id="email" label="Email" handleChange={() => {}} />
+            <DataInput
+              id="email"
+              label="Email"
+              type="email"
+              handleChange={() => {}}
+            />
           </div>
           <div className="mb-5">
             <DataInput

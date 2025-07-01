@@ -1,8 +1,19 @@
+type InputType =
+  | "checkbox"
+  | "email"
+  | "file"
+  | "hidden"
+  | "number"
+  | "password"
+  | "radio"
+  | "search"
+  | "text";
+
 type DataInputProps = {
   handleChange: (arg: string | number) => void;
   id: string;
   label?: string | null;
-  type?: string;
+  type?: InputType;
 };
 
 export default function DataInput({
