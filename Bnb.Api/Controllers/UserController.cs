@@ -55,7 +55,7 @@ namespace Bnb.Api
                 Phone = user.Phone
             };
 
-            return dto;
+            return Ok(dto);
         }
 
     }
