@@ -1,4 +1,5 @@
 using Bnb.Core;
+using Bnb.Repos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -10,6 +11,8 @@ builder.Services.AddDbContext<BnbContext>(
         .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
         .EnableSensitiveDataLogging()
         .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+
+builder.Services.AddScoped<IUserRepo, UserRepo>();
 
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer(options =>
