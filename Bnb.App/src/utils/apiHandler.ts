@@ -34,15 +34,15 @@ export const apiHandler: ApiHandler = {
       Accept: "application/json",
     };
 
-    const opts = {
-      ...options,
-      headers: { ...headers, ...options.headers },
-    };
-
     if (requiresAuth) {
       const token = "PLACEHOLDER";
       headers.Authorization = `Bearer ${token}`;
     }
+
+    const opts = {
+      ...options,
+      headers: { ...headers, ...options.headers },
+    };
 
     return fetch(url, opts).then((response) =>
       apiHandler.responseHandler<T>(response)
