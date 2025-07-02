@@ -2,7 +2,7 @@ type ApiHandler = {
   doApiCall: <T>(
     url: string,
     options: RequestInit,
-    requiresAuth: boolean
+    requiresAuth?: boolean
   ) => Promise<T>;
   get: <T>(url: string, requiresAuth?: boolean) => Promise<T>;
   post: <T>(url: string, dto: T, requiresAuth?: boolean) => Promise<T>;
