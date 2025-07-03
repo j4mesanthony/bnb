@@ -68,4 +68,17 @@ public class UserServiceTests
         Assert.AreEqual(testUser.Email, actual!.Email);
     }
     
+    [TestMethod]
+    public async Task GetUserByIdAsync_ReturnsNull_WhenUserNotFound()
+    {
+        var nonExistentUserId = 1;
+        _userRepoMock
+            .Setup(x => x.GetUserByIdAsync(nonExistentUserId))
+            .ReturnsAsync((User?)null);
+
+        var result = await _sut.GetUserByIdAsync(nonExistentUserId);
+
+        Assert.IsNull(result);
+    }
+    
 }
