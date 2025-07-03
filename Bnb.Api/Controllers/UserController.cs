@@ -25,7 +25,9 @@ namespace Bnb.Api.Controllers
             var user = await _service.GetUserByIdAsync(id);
             
             if (user == null) 
+            {
                 return NotFound();
+            }
             
             return Ok(user);
         }

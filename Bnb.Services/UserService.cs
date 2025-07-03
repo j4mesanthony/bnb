@@ -29,8 +29,10 @@ public class UserService(IUserRepo repo) : IUserService
     {
         var user = await _repo.GetUserByIdAsync(id);
 
-        if (user == null) 
+        if (user == null)
+        {
             return null;
+        }
         
         var dto = new UserDto
         {
