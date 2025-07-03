@@ -1,12 +1,12 @@
-using Bnb.Api.Dtos.Requests;
-using Bnb.Api.Dtos.Responses;
+using Bnb.Common.Dtos.Requests;
+using Bnb.Common.Dtos.Responses;
 using Bnb.Core;
 using Bnb.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bnb.Api;
+namespace Bnb.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

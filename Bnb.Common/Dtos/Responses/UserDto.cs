@@ -1,6 +1,6 @@
 using Bnb.Entities.Enums;
 
-namespace Bnb.Api.Dtos.Responses;
+namespace Bnb.Common.Dtos.Responses;
 
 public class UserDto
 {

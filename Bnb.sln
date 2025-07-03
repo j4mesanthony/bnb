@@ -10,6 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bnb.UnitTests", "Bnb.UnitTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bnb.Repos", "Bnb.Repos\Bnb.Repos.csproj", "{D09BB89B-2383-4E6A-8B9A-C417B7D37794}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bnb.Services", "Bnb.Services\Bnb.Services.csproj", "{F2C7FA7C-BD0A-4096-B3CA-6C427A2A7401}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bnb.Common", "Bnb.Common\Bnb.Common.csproj", "{9587635C-0D5E-49A6-A145-75A9891631F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +40,13 @@ Global
 		{D09BB89B-2383-4E6A-8B9A-C417B7D37794}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D09BB89B-2383-4E6A-8B9A-C417B7D37794}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D09BB89B-2383-4E6A-8B9A-C417B7D37794}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2C7FA7C-BD0A-4096-B3CA-6C427A2A7401}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2C7FA7C-BD0A-4096-B3CA-6C427A2A7401}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2C7FA7C-BD0A-4096-B3CA-6C427A2A7401}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2C7FA7C-BD0A-4096-B3CA-6C427A2A7401}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9587635C-0D5E-49A6-A145-75A9891631F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9587635C-0D5E-49A6-A145-75A9891631F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9587635C-0D5E-49A6-A145-75A9891631F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9587635C-0D5E-49A6-A145-75A9891631F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

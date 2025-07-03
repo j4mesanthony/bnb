@@ -17,9 +17,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Bnb.Common\Bnb.Common.csproj" />
       <ProjectReference Include="..\Bnb.Core\Bnb.Core.csproj" />
       <ProjectReference Include="..\Bnb.Entities\Bnb.Entities.csproj" />
-      <ProjectReference Include="..\Bnb.Repos\Bnb.Repos.csproj" />
+      <ProjectReference Include="..\Bnb.Services\Bnb.Services.csproj" />
     </ItemGroup>
 
 </Project>

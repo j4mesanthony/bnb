@@ -1,5 +1,6 @@
 using Bnb.Core;
 using Bnb.Repos;
+using Bnb.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -12,6 +13,10 @@ builder.Services.AddDbContext<BnbContext>(
         .EnableSensitiveDataLogging()
         .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
+// Services
+builder.Services.AddScoped<IUserService, UserService>();
+
+// Repos
 builder.Services.AddScoped<IUserRepo, UserRepo>();
 
 builder.Services.AddAuthentication("Bearer")
