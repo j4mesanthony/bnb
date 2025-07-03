@@ -1,13 +1,13 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Bnb.Api.Dtos.Requests;
+using Bnb.Common.Dtos.Requests;
 using Bnb.Core;
 using Bnb.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Bnb.Api;
+namespace Bnb.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

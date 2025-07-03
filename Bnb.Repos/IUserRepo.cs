@@ -6,6 +6,6 @@ public interface IUserRepo
 {
 
     Task<IEnumerable<User>> GetUsersAsync();
-    Task<User> GetUserByIdAsync(int id);
+    Task<User?> GetUserByIdAsync(int id);
 
 }

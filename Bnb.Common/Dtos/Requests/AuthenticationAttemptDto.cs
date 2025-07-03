@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Bnb.Api.Dtos.Requests;
+namespace Bnb.Common.Dtos.Requests;
 
 public class AuthenticationAttemptDto
 {

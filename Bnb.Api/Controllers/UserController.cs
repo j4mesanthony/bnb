@@ -1,61 +1,35 @@
-using Bnb.Api.Dtos.Responses;
-using Microsoft.AspNetCore.Mvc;
-using Bnb.Repos;
+using Bnb.Common.Dtos.Responses;
+using Bnb.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Bnb.Api
+namespace Bnb.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class UserController : ControllerBase
+    public class UserController(IUserService service) : ControllerBase
     {
-        private readonly IUserRepo _repo;
-
-        public UserController(IUserRepo repo)
-        {
-            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
-        }
+        private readonly IUserService _service = service ?? throw new ArgumentNullException(nameof(service));
         
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers()
         {
-            var users = await _repo.GetUsersAsync();
-            var dto = users.Select(x => new UserDto
-            {
-                Id = x.Id,
-                Age = x.Age,
-                Email = x.Email,
-                FirstName = x.FirstName,
-                Gender = x.Gender,
-                LastName = x.LastName,
-                Phone = x.Phone
-            });
-            return Ok(dto);
+            var users = await _service.GetUsersAsync();
+            return Ok(users);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> GetUserById(int id)
         {
-            var user = await _repo.GetUserByIdAsync(id);
+            var user = await _service.GetUserByIdAsync(id);
             
-            if (user == null)
+            if (user == null) 
             {
                 return NotFound();
             }
-
-            var dto = new UserDto
-            {
-                Id = user.Id,
-                Age = user.Age,
-                Email = user.Email,
-                FirstName = user.FirstName,
-                Gender = user.Gender,
-                LastName = user.LastName,
-                Phone = user.Phone
-            };
-
-            return Ok(dto);
+            
+            return Ok(user);
         }
 
     }

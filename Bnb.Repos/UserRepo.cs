@@ -4,14 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bnb.Repos;
 
-public class UserRepo : IUserRepo
+public class UserRepo(BnbContext context) : IUserRepo
 {
-    private readonly BnbContext _context;
-
-    public UserRepo(BnbContext context)
-    {
-        _context = context ?? throw new ArgumentNullException(nameof(context));
-    }
+    private readonly BnbContext _context = context ?? throw new ArgumentNullException(nameof(context));
 
     public async Task<IEnumerable<User>> GetUsersAsync()
     {
@@ -19,7 +14,7 @@ public class UserRepo : IUserRepo
         return users;
     }
 
-    public async Task<User> GetUserByIdAsync(int id)
+    public async Task<User?> GetUserByIdAsync(int id)
     {
         var user = await _context.Users.FindAsync(id);
         return user;
