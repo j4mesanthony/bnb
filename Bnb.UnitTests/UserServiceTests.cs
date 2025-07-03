@@ -1,5 +1,3 @@
-using System.Collections;
-using Bnb.Common.Dtos.Responses;
 using Bnb.Entities;
 using Bnb.Repos;
 using Bnb.Services;
@@ -34,7 +32,24 @@ public class UserServiceTests
     }
 
     [TestMethod]
-    public async Task GetUserByIdAsync_ReturnUser()
+    public async Task GetUsersAsync_ReturnsUserDtoList()
+    {
+        var users = new List<User>();
+        var user1 = new User(){ Id = 1, FirstName = "User", LastName = "Test #1", Email = "test@email.com", PasswordHash = "Password12345" };
+        var user2 = new User(){ Id = 1, FirstName = "User", LastName = "Test #1", Email = "test@email.com", PasswordHash = "Password12345" };
+        users.AddRange([user1, user2]);
+        
+        _userRepoMock
+            .Setup(x => x.GetUsersAsync())
+            .ReturnsAsync(users);
+
+        var actual = await _sut.GetUsersAsync();
+        
+        Assert.AreEqual(users.Count, actual.Count());
+    }
+
+    [TestMethod]
+    public async Task GetUserByIdAsync_ReturnsUserDto()
     {
         var userId = 5;
         var testUser = new User()
@@ -48,6 +63,12 @@ public class UserServiceTests
         var actual = await _sut.GetUserByIdAsync(userId);
         
         Assert.AreEqual(userId, actual!.Id);
+        Assert.AreEqual(testUser.FirstName, actual!.FirstName);
+        Assert.AreEqual(testUser.LastName, actual!.LastName);
+        Assert.AreEqual(testUser.Email, actual!.Email);
+        Assert.AreEqual(testUser.Email, actual!.Email);
     }
+    
+    // CHECK IF USER Null
     
 }
