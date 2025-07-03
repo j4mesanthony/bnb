@@ -10,7 +10,7 @@ namespace Bnb.Api.Controllers
     [Authorize]
     public class UserController(IUserService service) : ControllerBase
     {
-        private readonly IUserService _service = service ?? throw new ArgumentNullException();
+        private readonly IUserService _service = service ?? throw new ArgumentNullException(nameof(service));
         
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers()
