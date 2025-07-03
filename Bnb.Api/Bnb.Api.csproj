@@ -8,7 +8,6 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.6" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.5" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.5">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -19,7 +18,6 @@
     <ItemGroup>
       <ProjectReference Include="..\Bnb.Common\Bnb.Common.csproj" />
       <ProjectReference Include="..\Bnb.Core\Bnb.Core.csproj" />
-      <ProjectReference Include="..\Bnb.Entities\Bnb.Entities.csproj" />
       <ProjectReference Include="..\Bnb.Services\Bnb.Services.csproj" />
     </ItemGroup>
 

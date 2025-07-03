@@ -8,7 +8,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Bnb.Common\Bnb.Common.csproj" />
-      <ProjectReference Include="..\Bnb.Entities\Bnb.Entities.csproj" />
       <ProjectReference Include="..\Bnb.Repos\Bnb.Repos.csproj" />
     </ItemGroup>
 
