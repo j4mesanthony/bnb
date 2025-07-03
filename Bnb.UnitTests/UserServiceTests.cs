@@ -66,9 +66,6 @@ public class UserServiceTests
         Assert.AreEqual(testUser.FirstName, actual!.FirstName);
         Assert.AreEqual(testUser.LastName, actual!.LastName);
         Assert.AreEqual(testUser.Email, actual!.Email);
-        Assert.AreEqual(testUser.Email, actual!.Email);
     }
-    
-    // CHECK IF USER Null
     
 }
