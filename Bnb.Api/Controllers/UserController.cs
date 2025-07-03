@@ -7,7 +7,7 @@ namespace Bnb.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    // [Authorize]
+    [Authorize]
     public class UserController(IUserService service) : ControllerBase
     {
         private readonly IUserService _service = service ?? throw new ArgumentNullException();
