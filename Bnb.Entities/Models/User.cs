@@ -11,6 +11,7 @@ public class User
     public Gender? Gender { get; set; }
     public string? Phone { get; set; }
     public required string Email { get; set; }
+    public string NormalizedEmail { get; set; } = string.Empty;
     public required string PasswordHash { get; set; }
     public UserType UserType { get; set; } = UserType.User;
 }

@@ -19,4 +19,15 @@ public class UserRepo(BnbContext context) : IUserRepo
         var user = await _context.Users.FindAsync(id);
         return user;
     }
+
+    public async Task<User?> GetUserByEmailAsync(string email)
+    {
+        return await _context.Users.FirstOrDefaultAsync(x => x.NormalizedEmail == email.ToUpperInvariant());
+    }
+
+    public async Task<bool> AddNewUserAsync(User newUser)
+    {
+        _context.Users.Add(newUser);
+        return await _context.SaveChangesAsync() > 0;
+    }
 }

@@ -1,6 +1,8 @@
+using Bnb.Common.Dtos.Requests;
 using Bnb.Common.Dtos.Responses;
 using Bnb.Entities;
 using Bnb.Repos;
+using Microsoft.AspNetCore.Identity;
 
 namespace Bnb.Services;
 
@@ -46,5 +48,46 @@ public class UserService(IUserRepo repo) : IUserService
         };
 
         return dto;
+    }
+
+    public async Task<UserDto> RegisterNewUser(RegisterUserDto dto)
+    {
+        var user = await _repo.GetUserByEmailAsync(dto.Email);
+        
+        if (user != null) throw new InvalidOperationException("User already exists!");
+        
+        var newUser = new User
+        {
+            FirstName = dto.FirstName,
+            LastName = dto.LastName,
+            Email = dto.Email,
+            NormalizedEmail = dto.Email.ToUpperInvariant(),
+            PasswordHash = ""
+        };
+
+        var passwordHash = HashPassword(newUser, dto.Password);
+        newUser.PasswordHash = passwordHash;
+
+        var isSuccess = await _repo.AddNewUserAsync(newUser);
+
+        if (!isSuccess)
+        {
+            throw new InvalidOperationException("Failed to save new user.");
+        }
+
+        return new UserDto
+        {
+            Id = newUser.Id, 
+            FirstName = newUser.FirstName, 
+            LastName = newUser.LastName, 
+            Email = newUser.Email
+        };
+    }
+    
+    private static string HashPassword(User user, string password)
+    {
+        var hasher = new PasswordHasher<User>();
+        var hashed = hasher.HashPassword(user, password);
+        return hashed;
     }
 }

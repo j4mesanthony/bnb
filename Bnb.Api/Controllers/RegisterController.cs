@@ -1,44 +1,29 @@
 using Bnb.Common.Dtos.Requests;
 using Bnb.Common.Dtos.Responses;
-using Bnb.Core;
-using Bnb.Entities;
-using Microsoft.AspNetCore.Identity;
+using Bnb.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Bnb.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class RegisterController(BnbContext context) : ControllerBase
+public class RegisterController(IUserService service) : ControllerBase
 {
+    private readonly IUserService _service = service ?? throw new ArgumentNullException(nameof(service));
+    
     [HttpPost]
     public async Task<ActionResult<UserDto>> Register(RegisterUserDto dto)
     {
-        var user = await context.Users.FirstOrDefaultAsync(x => x.Email.ToLower() == dto.Email.ToLower());
-        if (user != null) return Conflict("User already exists!");
-
-        var newUser = new User
+        try
         {
-            FirstName = dto.FirstName,
-            LastName = dto.LastName,
-            Email = dto.Email,
-            PasswordHash = ""
-        };
-
-        var passwordHash = HashPassword(newUser, dto.Password);
-        newUser.PasswordHash = passwordHash;
-        
-        context.Users.Add(newUser);
-        await context.SaveChangesAsync();
+            await _service.RegisterNewUser(dto);
+        }
+        catch(InvalidOperationException error)
+        {
+            return Conflict(error.Message);
+        }
         
         return Created();
     }
-
-    private static string HashPassword(User user, string password)
-    {
-        var hasher = new PasswordHasher<User>();
-        var hashed = hasher.HashPassword(user, password);
-        return hashed;
-    }
+    
 }
