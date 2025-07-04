@@ -61,6 +61,7 @@ public class UserService(IUserRepo repo) : IUserService
             FirstName = dto.FirstName,
             LastName = dto.LastName,
             Email = dto.Email,
+            NormalizedEmail = dto.Email.ToUpperInvariant(),
             PasswordHash = ""
         };
 
