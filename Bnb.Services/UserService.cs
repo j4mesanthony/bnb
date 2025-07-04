@@ -54,7 +54,7 @@ public class UserService(IUserRepo repo) : IUserService
     {
         var user = await _repo.GetUserByEmailAsync(dto.Email);
         
-        if (user != null) throw new Exception("User already exists!");
+        if (user != null) throw new InvalidOperationException("User already exists!");
         
         var newUser = new User
         {
@@ -67,7 +67,12 @@ public class UserService(IUserRepo repo) : IUserService
         var passwordHash = HashPassword(newUser, dto.Password);
         newUser.PasswordHash = passwordHash;
 
-        await _repo.AddNewUserAsync(newUser);
+        var isSuccess = await _repo.AddNewUserAsync(newUser);
+
+        if (!isSuccess)
+        {
+            throw new Exception("Failed to save new user.");
+        }
 
         return new UserDto
         {

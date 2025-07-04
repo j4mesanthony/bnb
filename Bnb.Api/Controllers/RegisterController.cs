@@ -18,7 +18,7 @@ public class RegisterController(IUserService service) : ControllerBase
         {
             await _service.RegisterNewUser(dto);
         }
-        catch(Exception error)
+        catch(InvalidOperationException error)
         {
             return Conflict(error.Message);
         }
