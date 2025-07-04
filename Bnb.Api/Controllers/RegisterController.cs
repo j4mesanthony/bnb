@@ -16,7 +16,7 @@ public class RegisterController(IUserService service) : ControllerBase
     {
         try
         {
-            await _service.RegisterNewUser(dto);
+            await _service.RegisterNewUserAsync(dto);
         }
         catch(InvalidOperationException error)
         {

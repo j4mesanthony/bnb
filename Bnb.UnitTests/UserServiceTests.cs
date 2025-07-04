@@ -1,3 +1,4 @@
+using Bnb.Common.Dtos.Requests;
 using Bnb.Entities;
 using Bnb.Repos;
 using Bnb.Services;
@@ -79,6 +80,21 @@ public class UserServiceTests
         var result = await _sut.GetUserByIdAsync(nonExistentUserId);
 
         Assert.IsNull(result);
+    }
+    
+    [TestMethod]
+    public async Task RegisterNewUserAsync_UserAlreadyExists()
+    {
+        var email = "fds@test.com";
+        var password = "Password12345";
+        var existingUser = new User { Id = 1, Email = email, PasswordHash = password };
+        
+        _userRepoMock
+            .Setup(x => x.GetUserByEmailAsync(email))
+            .ReturnsAsync(existingUser);
+
+        await Assert.ThrowsExceptionAsync<InvalidOperationException>(() =>
+            _sut.RegisterNewUserAsync(new RegisterUserDto { Email = email, Password = password }));
     }
     
 }

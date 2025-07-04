@@ -7,5 +7,5 @@ public interface IUserService
 {
     Task<IEnumerable<UserDto>> GetUsersAsync();
     Task<UserDto?> GetUserByIdAsync(int id);
-    Task<UserDto> RegisterNewUser(RegisterUserDto dto);
+    Task<UserDto> RegisterNewUserAsync(RegisterUserDto dto);
 }
