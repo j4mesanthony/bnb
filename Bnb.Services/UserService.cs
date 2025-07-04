@@ -71,7 +71,7 @@ public class UserService(IUserRepo repo) : IUserService
 
         if (!isSuccess)
         {
-            throw new Exception("Failed to save new user.");
+            throw new InvalidOperationException("Failed to save new user.");
         }
 
         return new UserDto
