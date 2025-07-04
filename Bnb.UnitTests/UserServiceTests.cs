@@ -1,4 +1,5 @@
 using Bnb.Common.Dtos.Requests;
+using Bnb.Common.Exceptions;
 using Bnb.Entities;
 using Bnb.Repos;
 using Bnb.Services;
@@ -93,8 +94,10 @@ public class UserServiceTests
             .Setup(x => x.GetUserByEmailAsync(email))
             .ReturnsAsync(existingUser);
 
-        await Assert.ThrowsExceptionAsync<InvalidOperationException>(() =>
+        var exception = await Assert.ThrowsExceptionAsync<ResourceAlreadyExistsException>(() =>
             _sut.RegisterNewUserAsync(new RegisterUserDto { Email = email, Password = password }));
+        
+        Assert.AreEqual("User already exists!", exception.Message);
     }
     
 }
