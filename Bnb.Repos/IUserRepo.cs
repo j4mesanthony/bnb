@@ -8,6 +8,6 @@ public interface IUserRepo
     Task<User?> GetUserByIdAsync(int id);
 
     Task<User?> GetUserByEmailAsync(string email);
-    Task<bool> AddNewUserAsync(User newUser);
+    Task<User> AddNewUserAsync(User newUser);
 
 }

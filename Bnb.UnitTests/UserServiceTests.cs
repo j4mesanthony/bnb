@@ -99,5 +99,37 @@ public class UserServiceTests
         
         Assert.AreEqual("User already exists!", exception.Message);
     }
+
+    [TestMethod]
+    public async Task RegisterNewUserAsync_CreatesNewUser()
+    {
+        var email = "test@test.com";
+        var password = "Password12345";
+        var firstName = "Test";
+        var lastName = "User";
+        
+        _userRepoMock
+            .Setup(x => x.GetUserByEmailAsync(email))
+            .ReturnsAsync((User?)null);
+
+        _userRepoMock
+            .Setup(x => x.AddNewUserAsync(It.IsAny<User>()))
+            .ReturnsAsync(new User { Id = 1, FirstName = firstName, LastName = lastName, Email = email, PasswordHash = password});
+        
+        var result = await _sut.RegisterNewUserAsync(new RegisterUserDto 
+        { 
+            Email = email, 
+            Password = password,
+            FirstName = firstName,
+            LastName = lastName
+        });
+        
+        
+        Assert.IsNotNull(result);
+        Assert.AreEqual(1, result.Id);
+        Assert.AreEqual(firstName, result.FirstName);
+        Assert.AreEqual(lastName, result.LastName);
+        Assert.AreEqual(email, result.Email);
+    }
     
 }

@@ -69,19 +69,14 @@ public class UserService(IUserRepo repo) : IUserService
         var passwordHash = HashPassword(newUser, dto.Password);
         newUser.PasswordHash = passwordHash;
 
-        var isSuccess = await _repo.AddNewUserAsync(newUser);
-
-        if (!isSuccess)
-        {
-            throw new InvalidOperationException("Failed to save new user.");
-        }
+        var created = await _repo.AddNewUserAsync(newUser);
 
         return new UserDto
         {
-            Id = newUser.Id, 
-            FirstName = newUser.FirstName, 
-            LastName = newUser.LastName, 
-            Email = newUser.Email
+            Id = created.Id, 
+            FirstName = created.FirstName, 
+            LastName = created.LastName, 
+            Email = created.Email
         };
     }
     
