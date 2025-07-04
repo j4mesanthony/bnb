@@ -22,7 +22,7 @@ public class UserRepo(BnbContext context) : IUserRepo
 
     public async Task<User?> GetUserByEmailAsync(string email)
     {
-        return await _context.Users.FirstOrDefaultAsync(x => x.Email.ToLower() == email.ToLower());
+        return await _context.Users.FirstOrDefaultAsync(x => x.NormalizedEmail == email.ToUpperInvariant());
     }
 
     public async Task<bool> AddNewUserAsync(User newUser)
