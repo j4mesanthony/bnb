@@ -50,7 +50,7 @@ public class UserService(IUserRepo repo) : IUserService
         return dto;
     }
 
-    public async Task<UserDto?> RegisterNewUser(RegisterUserDto dto)
+    public async Task<UserDto> RegisterNewUser(RegisterUserDto dto)
     {
         var user = await _repo.GetUserByEmailAsync(dto.Email);
         
