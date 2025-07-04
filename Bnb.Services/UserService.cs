@@ -1,5 +1,6 @@
 using Bnb.Common.Dtos.Requests;
 using Bnb.Common.Dtos.Responses;
+using Bnb.Common.Exceptions;
 using Bnb.Entities;
 using Bnb.Repos;
 using Microsoft.AspNetCore.Identity;
@@ -50,11 +51,11 @@ public class UserService(IUserRepo repo) : IUserService
         return dto;
     }
 
-    public async Task<UserDto> RegisterNewUser(RegisterUserDto dto)
+    public async Task<UserDto> RegisterNewUserAsync(RegisterUserDto dto)
     {
         var user = await _repo.GetUserByEmailAsync(dto.Email);
         
-        if (user != null) throw new InvalidOperationException("User already exists!");
+        if (user != null) throw new ResourceAlreadyExistsException("User already exists!");
         
         var newUser = new User
         {
