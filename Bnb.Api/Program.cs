@@ -37,7 +37,7 @@ var app = builder.Build();
 
 app.UseCors(opts =>
 {
-    opts.WithOrigins(AppConstants.LocalHost);
+    opts.WithOrigins(EnvironmentOrigins.LocalHost);
     opts.AllowAnyHeader();
     opts.AllowAnyMethod();
 });
