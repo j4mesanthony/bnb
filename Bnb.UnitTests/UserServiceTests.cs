@@ -84,7 +84,7 @@ public class UserServiceTests
     }
     
     [TestMethod]
-    public async Task RegisterNewUserAsync_ThrowsInvalidOperationException_WhenUserAlreadyExists()
+    public async Task RegisterNewUserAsync_ThrowsResourceAlreadyExistsException_WhenUserAlreadyExists()
     {
         var email = "fds@test.com";
         var password = "Password12345";
