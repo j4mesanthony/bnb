@@ -14,6 +14,7 @@ type DataInputProps = {
   id: string;
   label?: string | null;
   type?: InputType;
+  value: string | number;
 };
 
 export default function DataInput({
@@ -21,6 +22,7 @@ export default function DataInput({
   id,
   label = "",
   type = "text",
+  value,
 }: DataInputProps) {
   return (
     <>
@@ -36,6 +38,7 @@ export default function DataInput({
         <input
           id={id}
           type={type}
+          value={value}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           onChange={(e) => handleChange(e.target.value)}
         />
