@@ -11,6 +11,7 @@ export default defineConfig({
         "src/vite-env.d.ts",
         "src/features/*/*.tsx",
         "src/features/*/models/**",
+        "src/features/*/dtos/**",
       ],
     },
   },

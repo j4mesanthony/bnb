@@ -1,8 +1,12 @@
-import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { describe, it, expect, vi, afterEach } from "vitest";
+import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 import PrimaryButton from "../PrimaryButton";
 
 describe("PrimaryButton", () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   it("should render with default slot content", () => {
     render(<PrimaryButton handleClick={() => {}} />);
     const element = screen.getByRole("button", { name: /PrimaryButton/i });
@@ -22,6 +26,19 @@ describe("PrimaryButton", () => {
 
     fireEvent.click(element);
     expect(element).toBeDefined();
-    expect(mockFn).toHaveBeenCalledOnce();
+    expect(mockFn).toHaveBeenCalledTimes(1);
+  });
+
+  it("should not emit a click event when in disabled state", () => {
+    const mockFn = vi.fn();
+    render(
+      <PrimaryButton handleClick={mockFn} isDisabled>
+        Click Me
+      </PrimaryButton>
+    );
+    const element = screen.getByRole("button", { name: /click me/i });
+
+    fireEvent.click(element);
+    expect(mockFn).not.toHaveBeenCalled();
   });
 });
