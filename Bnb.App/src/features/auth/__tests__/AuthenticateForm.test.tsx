@@ -36,7 +36,7 @@ describe("AuthenticateForm", () => {
     const button = screen.getByRole("button", { name: /Login/i });
     fireEvent.click(button);
 
-    expect(mockFn).toHaveBeenCalledOnce();
+    expect(mockFn).toHaveBeenCalledTimes(1);
     expect(mockFn).toHaveBeenCalledWith({ email, password });
   });
 

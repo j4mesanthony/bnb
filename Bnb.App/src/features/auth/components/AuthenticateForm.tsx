@@ -39,6 +39,8 @@ const credentialsReducer = (state: State, action: StateAction): State => {
         password: state.password,
         confirmPassword: action.payload as string,
       };
+    default:
+      throw new Error("Unknown action.");
   }
 };
 
