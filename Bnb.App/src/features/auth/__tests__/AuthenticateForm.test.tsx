@@ -75,9 +75,28 @@ describe("AuthenticateForm", () => {
     const pwdField = screen.getByLabelText("Password");
     const confirmPwdField = screen.getByLabelText("Confirm Password");
     fireEvent.change(emailField, { target: { value: "test@email.com" } });
+    fireEvent.change(pwdField, { target: { value: "Password12345" } });
+    fireEvent.change(confirmPwdField, {
+      target: { value: "Password54321" },
+    });
+
+    const button = screen.getByRole("button", {
+      name: /Login/i,
+    }) as HTMLButtonElement;
+
+    expect(button.disabled).toBe(true);
+  });
+
+  it("should disable the Login button if the provided email is invalid", () => {
+    render(<AuthenticateForm handleSubmit={() => {}} />);
+
+    const emailField = screen.getByRole("textbox", { name: /email/i });
+    const pwdField = screen.getByLabelText("Password");
+    const confirmPwdField = screen.getByLabelText("Confirm Password");
+    fireEvent.change(emailField, { target: { value: "test@ed" } });
     fireEvent.change(pwdField, { target: { value: "Password51268741" } });
     fireEvent.change(confirmPwdField, {
-      target: { value: "Password51265741" },
+      target: { value: "Password51268741" },
     });
 
     const button = screen.getByRole("button", {
