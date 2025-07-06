@@ -13,10 +13,7 @@ export function useCredentialsReducer() {
     confirmPassword: string;
   };
 
-  type StateAction =
-    | { type: number; payload: string }
-    | { type: number; payload: string }
-    | { type: number; payload: string };
+  type StateAction = { type: number; payload: string };
 
   const initialState: State = {
     email: "",
