@@ -14,22 +14,22 @@ type State = {
 };
 
 type StateAction =
-  | { type: "EMAIL"; payload: string | number }
-  | { type: "PASSWORD"; payload: string | number }
-  | { type: "CONFIRMPASSWORD"; payload: string | number };
+  | { type: "EMAIL"; payload: string }
+  | { type: "PASSWORD"; payload: string }
+  | { type: "CONFIRMPASSWORD"; payload: string };
 
 const credentialsReducer = (state: State, action: StateAction): State => {
   switch (action.type) {
     case "EMAIL":
       return {
-        email: action.payload as string,
+        email: action.payload,
         password: state.password,
         confirmPassword: state.confirmPassword,
       };
     case "PASSWORD":
       return {
         email: state.email,
-        password: action.payload as string,
+        password: action.payload,
         confirmPassword: state.confirmPassword,
       };
 
@@ -37,7 +37,7 @@ const credentialsReducer = (state: State, action: StateAction): State => {
       return {
         email: state.email,
         password: state.password,
-        confirmPassword: action.payload as string,
+        confirmPassword: action.payload,
       };
     default:
       throw new Error("Unknown action.");
@@ -70,7 +70,9 @@ export default function AuthenticateForm({
           label="Email"
           type="email"
           value={state.email}
-          handleChange={(payload) => dispatch({ type: "EMAIL", payload })}
+          handleChange={(value) =>
+            dispatch({ type: "EMAIL", payload: value as string })
+          }
         />
       </div>
       <div className="mb-5">
@@ -79,7 +81,9 @@ export default function AuthenticateForm({
           label="Password"
           type="password"
           value={state.password}
-          handleChange={(payload) => dispatch({ type: "PASSWORD", payload })}
+          handleChange={(value) =>
+            dispatch({ type: "PASSWORD", payload: value as string })
+          }
         />
       </div>
       <div className="mb-5">
@@ -88,8 +92,8 @@ export default function AuthenticateForm({
           label="Confirm Password"
           type="password"
           value={state.confirmPassword}
-          handleChange={(payload) =>
-            dispatch({ type: "CONFIRMPASSWORD", payload })
+          handleChange={(value) =>
+            dispatch({ type: "CONFIRMPASSWORD", payload: value as string })
           }
         />
       </div>
