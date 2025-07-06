@@ -74,25 +74,29 @@ describe("AuthenticateForm", () => {
   });
 
   it("should disable the Login button if the password fields are empty", () => {
-    const { emailField, loginButton } = setup();
+    const { emailField, loginButton, passwordField, confirmPasswordField } =
+      setup();
 
     fillFields({
       email: "test@email.com",
       emailField,
-      passwordField: emailField,
-      confirmPasswordField: emailField,
+      passwordField,
+      confirmPasswordField,
     });
 
     expect(loginButton.disabled).toBe(true);
   });
 
   it("should disable the Login button if the email field is empty", () => {
-    const { passwordField, confirmPasswordField, loginButton } = setup();
+    const { passwordField, confirmPasswordField, loginButton, emailField } =
+      setup();
+
+    const password = "Password12345678";
 
     fillFields({
-      password: "test@email.com",
-      confirmPassword: "test@email.com",
-      emailField: passwordField,
+      password,
+      confirmPassword: password,
+      emailField,
       passwordField,
       confirmPasswordField,
     });
@@ -120,10 +124,31 @@ describe("AuthenticateForm", () => {
     const { emailField, passwordField, confirmPasswordField, loginButton } =
       setup();
 
+    const invalidEmail = "test@ed";
+    const password = "Password51268741";
+
     fillFields({
-      email: "test@ed",
-      password: "Password51268741",
-      confirmPassword: "Password51268741",
+      email: invalidEmail,
+      password,
+      confirmPassword: password,
+      emailField,
+      passwordField,
+      confirmPasswordField,
+    });
+
+    expect(loginButton.disabled).toBe(true);
+  });
+
+  it("should disable the Login button if the provided password does not meet minimum length", () => {
+    const { emailField, passwordField, confirmPasswordField, loginButton } =
+      setup();
+
+    const password = "Password";
+
+    fillFields({
+      email: "test@test.com",
+      password,
+      confirmPassword: password,
       emailField,
       passwordField,
       confirmPasswordField,

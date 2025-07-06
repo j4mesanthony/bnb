@@ -1,7 +1,9 @@
+import { useCredentialsReducer } from "../hooks/useCredentialsReducer";
 import DataInput from "../../../components/DataInput";
 import PrimaryButton from "../../../components/PrimaryButton";
 import type { UserCredentialsDto } from "../dtos/UserCredentialsDto";
-import { useCredentialsReducer } from "../hooks/useCredentialsReducer";
+
+const MIN_PWD_LEN = 12;
 
 type AuthenticateFormProps = {
   handleSubmit: (dto: UserCredentialsDto) => void;
@@ -13,12 +15,14 @@ export default function AuthenticateForm({
   const { state, dispatch, Actions } = useCredentialsReducer();
 
   const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.email);
+  const isPasswordMinLen = state.password.length >= MIN_PWD_LEN;
 
   const isFormInvalid =
     !state.email ||
     !state.password ||
     !state.confirmPassword ||
     state.password !== state.confirmPassword ||
+    !isPasswordMinLen ||
     !isValidEmail;
 
   return (
