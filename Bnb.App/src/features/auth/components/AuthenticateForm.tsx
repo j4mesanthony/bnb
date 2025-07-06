@@ -1,10 +1,10 @@
 import { useReducer } from "react";
 import DataInput from "../../../components/DataInput";
 import PrimaryButton from "../../../components/PrimaryButton";
-import type { UserCredentials } from "../../dtos/userCredentials";
+import type { UserCredentialsDto } from "../dtos/UserCredentialsDto";
 
 type AuthenticateFormProps = {
-  handleSubmit: (dto: UserCredentials) => void;
+  handleSubmit: (dto: UserCredentialsDto) => void;
 };
 
 type State = {
@@ -39,8 +39,6 @@ const credentialsReducer = (state: State, action: StateAction): State => {
         password: state.password,
         confirmPassword: action.payload as string,
       };
-    default:
-      return state;
   }
 };
 
@@ -53,11 +51,14 @@ export default function AuthenticateForm({
     confirmPassword: "",
   });
 
+  const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.email);
+
   const isFormInvalid =
     !state.email ||
     !state.password ||
     !state.confirmPassword ||
-    state.password !== state.confirmPassword;
+    state.password !== state.confirmPassword ||
+    !isValidEmail;
 
   return (
     <>
