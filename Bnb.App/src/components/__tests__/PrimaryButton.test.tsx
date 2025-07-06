@@ -26,7 +26,7 @@ describe("PrimaryButton", () => {
 
     fireEvent.click(element);
     expect(element).toBeDefined();
-    expect(mockFn).toHaveBeenCalledOnce();
+    expect(mockFn).toHaveBeenCalledTimes(1);
   });
 
   it("should not emit a click event when in disabled state", () => {
