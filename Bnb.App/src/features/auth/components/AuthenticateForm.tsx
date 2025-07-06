@@ -1,57 +1,16 @@
-import { useReducer } from "react";
 import DataInput from "../../../components/DataInput";
 import PrimaryButton from "../../../components/PrimaryButton";
 import type { UserCredentialsDto } from "../dtos/UserCredentialsDto";
+import { useCredentialsReducer } from "../hooks/useCredentialsReducer";
 
 type AuthenticateFormProps = {
   handleSubmit: (dto: UserCredentialsDto) => void;
 };
 
-type State = {
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
-
-type StateAction =
-  | { type: "EMAIL"; payload: string }
-  | { type: "PASSWORD"; payload: string }
-  | { type: "CONFIRMPASSWORD"; payload: string };
-
-const credentialsReducer = (state: State, action: StateAction): State => {
-  switch (action.type) {
-    case "EMAIL":
-      return {
-        email: action.payload,
-        password: state.password,
-        confirmPassword: state.confirmPassword,
-      };
-    case "PASSWORD":
-      return {
-        email: state.email,
-        password: action.payload,
-        confirmPassword: state.confirmPassword,
-      };
-
-    case "CONFIRMPASSWORD":
-      return {
-        email: state.email,
-        password: state.password,
-        confirmPassword: action.payload,
-      };
-    default:
-      throw new Error("Unknown action.");
-  }
-};
-
 export default function AuthenticateForm({
   handleSubmit,
 }: AuthenticateFormProps) {
-  const [state, dispatch] = useReducer(credentialsReducer, {
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+  const { state, dispatch, Actions } = useCredentialsReducer();
 
   const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.email);
 
@@ -71,7 +30,7 @@ export default function AuthenticateForm({
           type="email"
           value={state.email}
           handleChange={(value) =>
-            dispatch({ type: "EMAIL", payload: value as string })
+            dispatch({ type: Actions.Email, payload: value as string })
           }
         />
       </div>
@@ -82,7 +41,7 @@ export default function AuthenticateForm({
           type="password"
           value={state.password}
           handleChange={(value) =>
-            dispatch({ type: "PASSWORD", payload: value as string })
+            dispatch({ type: Actions.Password, payload: value as string })
           }
         />
       </div>
@@ -93,7 +52,10 @@ export default function AuthenticateForm({
           type="password"
           value={state.confirmPassword}
           handleChange={(value) =>
-            dispatch({ type: "CONFIRMPASSWORD", payload: value as string })
+            dispatch({
+              type: Actions.ConfirmPassword,
+              payload: value as string,
+            })
           }
         />
       </div>
