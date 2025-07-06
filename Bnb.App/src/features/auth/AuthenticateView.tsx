@@ -1,8 +1,10 @@
 import AuthenticateForm from "./components/AuthenticateForm";
+import type { UserCredentialsDto } from "./dtos/UserCredentialsDto";
 
 export default function AuthenticateView() {
-  const handleLogin = () => {
+  const handleLogin = (dto: UserCredentialsDto) => {
     console.log("login!");
+    console.log("dto: ", dto);
   };
 
   return (

@@ -2,17 +2,49 @@ import { describe, it, expect, afterEach, vi } from "vitest";
 import { fireEvent, render, screen, cleanup } from "@testing-library/react";
 import AuthenticateForm from "../components/AuthenticateForm";
 
+const setup = (handleSubmit = () => {}) => {
+  render(<AuthenticateForm handleSubmit={handleSubmit} />);
+
+  const emailField = screen.getByRole("textbox", { name: /email/i });
+  const passwordField = screen.getByLabelText("Password");
+  const confirmPasswordField = screen.getByLabelText("Confirm Password");
+  const loginButton = screen.getByRole("button", {
+    name: /Login/i,
+  }) as HTMLButtonElement;
+  return { emailField, passwordField, confirmPasswordField, loginButton };
+};
+
+const fillFields = ({
+  email = "",
+  password = "",
+  confirmPassword = "",
+  emailField,
+  passwordField,
+  confirmPasswordField,
+}: {
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
+  emailField: HTMLElement;
+  passwordField: HTMLElement;
+  confirmPasswordField: HTMLElement;
+}) => {
+  if (email) fireEvent.change(emailField, { target: { value: email } });
+  if (password)
+    fireEvent.change(passwordField, { target: { value: password } });
+  if (confirmPassword)
+    fireEvent.change(confirmPasswordField, {
+      target: { value: confirmPassword },
+    });
+};
+
 describe("AuthenticateForm", () => {
   afterEach(() => {
     cleanup();
   });
 
   it("should render email, password and confirm password fields", () => {
-    render(<AuthenticateForm handleSubmit={() => {}} />);
-
-    const emailField = screen.getByRole("textbox", { name: /email/i });
-    const passwordField = screen.getByLabelText("Password");
-    const confirmPasswordField = screen.getByLabelText("Confirm Password");
+    const { emailField, passwordField, confirmPasswordField } = setup();
 
     expect(emailField).toBeDefined();
     expect(passwordField).toBeDefined();
@@ -21,88 +53,82 @@ describe("AuthenticateForm", () => {
 
   it("should call handleSubmit function with updated state", () => {
     const mockFn = vi.fn();
-    render(<AuthenticateForm handleSubmit={mockFn} />);
-
-    const emailField = screen.getByRole("textbox", { name: /email/i });
-    const pwdField = screen.getByLabelText("Password");
-    const confirmPwdField = screen.getByLabelText("Confirm Password");
+    const { emailField, passwordField, confirmPasswordField, loginButton } =
+      setup(mockFn);
     const email = "fds@test.com";
     const password = "Password12345678";
 
-    fireEvent.change(emailField, { target: { value: email } });
-    fireEvent.change(pwdField, { target: { value: password } });
-    fireEvent.change(confirmPwdField, { target: { value: password } });
+    fillFields({
+      email,
+      password,
+      confirmPassword: password,
+      emailField,
+      passwordField,
+      confirmPasswordField,
+    });
 
-    const button = screen.getByRole("button", { name: /Login/i });
-    fireEvent.click(button);
+    fireEvent.click(loginButton);
 
     expect(mockFn).toHaveBeenCalledTimes(1);
     expect(mockFn).toHaveBeenCalledWith({ email, password });
   });
 
   it("should disable the Login button if the password fields are empty", () => {
-    render(<AuthenticateForm handleSubmit={() => {}} />);
+    const { emailField, loginButton } = setup();
 
-    const emailField = screen.getByRole("textbox", { name: /email/i });
-    fireEvent.change(emailField, { target: { value: "test@email.com" } });
+    fillFields({
+      email: "test@email.com",
+      emailField,
+      passwordField: emailField,
+      confirmPasswordField: emailField,
+    });
 
-    const button = screen.getByRole("button", {
-      name: /Login/i,
-    }) as HTMLButtonElement;
-
-    expect(button.disabled).toBe(true);
+    expect(loginButton.disabled).toBe(true);
   });
 
   it("should disable the Login button if the email field is empty", () => {
-    render(<AuthenticateForm handleSubmit={() => {}} />);
+    const { passwordField, confirmPasswordField, loginButton } = setup();
 
-    const pwdField = screen.getByLabelText("Password");
-    const confirmPwdField = screen.getByLabelText("Confirm Password");
-    fireEvent.change(pwdField, { target: { value: "test@email.com" } });
-    fireEvent.change(confirmPwdField, { target: { value: "test@email.com" } });
+    fillFields({
+      password: "test@email.com",
+      confirmPassword: "test@email.com",
+      emailField: passwordField,
+      passwordField,
+      confirmPasswordField,
+    });
 
-    const button = screen.getByRole("button", {
-      name: /Login/i,
-    }) as HTMLButtonElement;
-
-    expect(button.disabled).toBe(true);
+    expect(loginButton.disabled).toBe(true);
   });
 
   it("should disable the Login button if the password fields do not match", () => {
-    render(<AuthenticateForm handleSubmit={() => {}} />);
+    const { emailField, passwordField, confirmPasswordField, loginButton } =
+      setup();
 
-    const emailField = screen.getByRole("textbox", { name: /email/i });
-    const pwdField = screen.getByLabelText("Password");
-    const confirmPwdField = screen.getByLabelText("Confirm Password");
-    fireEvent.change(emailField, { target: { value: "test@email.com" } });
-    fireEvent.change(pwdField, { target: { value: "Password12345" } });
-    fireEvent.change(confirmPwdField, {
-      target: { value: "Password54321" },
+    fillFields({
+      email: "test@email.com",
+      password: "Password12345",
+      confirmPassword: "Password54321",
+      emailField,
+      passwordField,
+      confirmPasswordField,
     });
 
-    const button = screen.getByRole("button", {
-      name: /Login/i,
-    }) as HTMLButtonElement;
-
-    expect(button.disabled).toBe(true);
+    expect(loginButton.disabled).toBe(true);
   });
 
   it("should disable the Login button if the provided email is invalid", () => {
-    render(<AuthenticateForm handleSubmit={() => {}} />);
+    const { emailField, passwordField, confirmPasswordField, loginButton } =
+      setup();
 
-    const emailField = screen.getByRole("textbox", { name: /email/i });
-    const pwdField = screen.getByLabelText("Password");
-    const confirmPwdField = screen.getByLabelText("Confirm Password");
-    fireEvent.change(emailField, { target: { value: "test@ed" } });
-    fireEvent.change(pwdField, { target: { value: "Password51268741" } });
-    fireEvent.change(confirmPwdField, {
-      target: { value: "Password51268741" },
+    fillFields({
+      email: "test@ed",
+      password: "Password51268741",
+      confirmPassword: "Password51268741",
+      emailField,
+      passwordField,
+      confirmPasswordField,
     });
 
-    const button = screen.getByRole("button", {
-      name: /Login/i,
-    }) as HTMLButtonElement;
-
-    expect(button.disabled).toBe(true);
+    expect(loginButton.disabled).toBe(true);
   });
 });
