@@ -10,18 +10,35 @@ type AuthenticateFormProps = {
 type State = {
   email: string;
   password: string;
+  confirmPassword: string;
 };
 
 type StateAction =
   | { type: "EMAIL"; payload: string | number }
-  | { type: "PASSWORD"; payload: string | number };
+  | { type: "PASSWORD"; payload: string | number }
+  | { type: "CONFIRMPASSWORD"; payload: string | number };
 
 const credentialsReducer = (state: State, action: StateAction): State => {
   switch (action.type) {
     case "EMAIL":
-      return { email: action.payload as string, password: state.password };
+      return {
+        email: action.payload as string,
+        password: state.password,
+        confirmPassword: state.confirmPassword,
+      };
     case "PASSWORD":
-      return { email: state.email, password: action.payload as string };
+      return {
+        email: state.email,
+        password: action.payload as string,
+        confirmPassword: state.confirmPassword,
+      };
+
+    case "CONFIRMPASSWORD":
+      return {
+        email: state.email,
+        password: state.password,
+        confirmPassword: action.payload as string,
+      };
     default:
       return state;
   }
@@ -33,7 +50,14 @@ export default function AuthenticateForm({
   const [state, dispatch] = useReducer(credentialsReducer, {
     email: "",
     password: "",
+    confirmPassword: "",
   });
+
+  const isFormInvalid =
+    !state.email ||
+    !state.password ||
+    !state.confirmPassword ||
+    state.password !== state.confirmPassword;
 
   return (
     <>
@@ -60,12 +84,15 @@ export default function AuthenticateForm({
           id="confirm"
           label="Confirm Password"
           type="password"
-          value=""
-          handleChange={() => {}}
+          value={state.confirmPassword}
+          handleChange={(payload) =>
+            dispatch({ type: "CONFIRMPASSWORD", payload })
+          }
         />
       </div>
 
       <PrimaryButton
+        isDisabled={isFormInvalid}
         handleClick={() =>
           handleSubmit({
             email: state.email,
