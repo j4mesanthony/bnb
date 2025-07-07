@@ -3,8 +3,6 @@ import DataInput from "../../../components/DataInput";
 import PrimaryButton from "../../../components/PrimaryButton";
 import type { UserCredentialsDto } from "../dtos/UserCredentialsDto";
 
-const MIN_PWD_LEN = 12;
-
 type AuthenticateFormProps = {
   handleSubmit: (dto: UserCredentialsDto) => void;
 };
@@ -12,18 +10,16 @@ type AuthenticateFormProps = {
 export default function AuthenticateForm({
   handleSubmit,
 }: AuthenticateFormProps) {
-  const { state, dispatch, Actions } = useCredentialsReducer();
-
-  const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.email);
-  const isPasswordMinLen = state.password.length >= MIN_PWD_LEN;
+  const { state, dispatch, errorMsg, Actions } = useCredentialsReducer();
 
   const isFormInvalid =
     !state.email ||
     !state.password ||
     !state.confirmPassword ||
     state.password !== state.confirmPassword ||
-    !isPasswordMinLen ||
-    !isValidEmail;
+    !!state.emailError ||
+    !!state.passwordError ||
+    !!state.confirmPasswordError;
 
   return (
     <>
@@ -62,6 +58,14 @@ export default function AuthenticateForm({
             })
           }
         />
+      </div>
+
+      {/* TODO: AlertMessage */}
+      <div
+        className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+        role="alert"
+      >
+        {errorMsg}
       </div>
 
       <PrimaryButton
