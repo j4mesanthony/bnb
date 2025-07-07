@@ -1,0 +1,33 @@
+type AlertMessageProps = {
+  children: string;
+  isWarning?: boolean;
+  isError?: boolean;
+  isSuccess?: boolean;
+};
+
+export default function AlertMessage({
+  children,
+  isWarning,
+  isError,
+  isSuccess,
+}: AlertMessageProps) {
+  const colorClasses = `${
+    isWarning
+      ? "bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-100"
+      : isError
+      ? "bg-red-200 dark:bg-red-900 text-red-800 dark:text-red-100"
+      : isSuccess
+      ? "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100"
+      : "bg-blue-100 dark:bg-blue-900 text-blue-900 dark:text-blue-100"
+  }`;
+
+  return (
+    <div
+      className={`p-4 mb-4 text-sm rounded-lg  ${colorClasses}`}
+      role="alert"
+      aria-label={children}
+    >
+      {children}
+    </div>
+  );
+}

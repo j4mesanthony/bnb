@@ -2,6 +2,7 @@ import { useCredentialsReducer } from "../hooks/useCredentialsReducer";
 import DataInput from "../../../components/DataInput";
 import PrimaryButton from "../../../components/PrimaryButton";
 import type { UserCredentialsDto } from "../dtos/UserCredentialsDto";
+import AlertMessage from "../../../components/AlertMessage";
 
 type AuthenticateFormProps = {
   handleSubmit: (dto: UserCredentialsDto) => void;
@@ -60,13 +61,7 @@ export default function AuthenticateForm({
         />
       </div>
 
-      {/* TODO: AlertMessage */}
-      <div
-        className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-        role="alert"
-      >
-        {errorMsg}
-      </div>
+      {errorMsg && <AlertMessage>{errorMsg}</AlertMessage>}
 
       <PrimaryButton
         isDisabled={isFormInvalid}

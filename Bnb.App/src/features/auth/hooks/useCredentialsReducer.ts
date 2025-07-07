@@ -76,7 +76,7 @@ export function useCredentialsReducer() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const errorMsg =
-    state.emailError || state.passwordError || state.confirmPasswordError;
+    state.emailError || state.passwordError || state.confirmPasswordError || "";
 
   return {
     Actions,
