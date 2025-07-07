@@ -1,6 +1,7 @@
 import { describe, it, expect, afterEach } from "vitest";
 import { screen, render, cleanup } from "@testing-library/react";
 import AlertMessage from "../AlertMessage";
+import { AlertType } from "../../consts/AlertType";
 
 describe("AlertMesage", () => {
   afterEach(cleanup);
@@ -17,7 +18,9 @@ describe("AlertMesage", () => {
   });
 
   it("should render as a warning", () => {
-    render(<AlertMessage isWarning>This is a warning</AlertMessage>);
+    render(
+      <AlertMessage type={AlertType.Warning}>This is a warning</AlertMessage>
+    );
     const alert = screen.getByRole("alert", { name: /This is a warning/i });
 
     expect(alert).toBeDefined();
@@ -27,7 +30,9 @@ describe("AlertMesage", () => {
   });
 
   it("should render as an error", () => {
-    render(<AlertMessage isError>This is an error</AlertMessage>);
+    render(
+      <AlertMessage type={AlertType.Error}>This is an error</AlertMessage>
+    );
     const alert = screen.getByRole("alert", { name: /This is an error/i });
 
     expect(alert).toBeDefined();
@@ -37,7 +42,7 @@ describe("AlertMesage", () => {
   });
 
   it("should render as a success message", () => {
-    render(<AlertMessage isSuccess>Success!</AlertMessage>);
+    render(<AlertMessage type={AlertType.Success}>Success!</AlertMessage>);
     const alert = screen.getByRole("alert", { name: /Success/i });
 
     expect(alert).toBeDefined();
