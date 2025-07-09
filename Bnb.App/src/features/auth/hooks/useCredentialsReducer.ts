@@ -75,6 +75,15 @@ export function useCredentialsReducer() {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const isFormInvalid =
+    !state.email ||
+    !state.password ||
+    !state.confirmPassword ||
+    state.password !== state.confirmPassword ||
+    !!state.emailError ||
+    !!state.passwordError ||
+    !!state.confirmPasswordError;
+
   const errorMsg =
     state.emailError || state.passwordError || state.confirmPasswordError || "";
 
@@ -82,6 +91,7 @@ export function useCredentialsReducer() {
     Actions,
     dispatch,
     errorMsg,
+    isFormInvalid,
     initialState,
     reducer,
     state,

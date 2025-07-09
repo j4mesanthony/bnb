@@ -1,9 +1,9 @@
-import AuthenticateView from "./features/auth/AuthenticateView";
+import AuthenticationView from "./features/auth/AuthenticationView";
 
 function App() {
   return (
     <>
-      <AuthenticateView />
+      <AuthenticationView />
     </>
   );
 }
