@@ -1,10 +1,10 @@
-import AuthenticateForm from "./components/AuthenticateForm";
+import { authenticationApi } from "./api/authenticationApi";
+import AuthenticateForm from "./components/AuthenticationForm";
 import type { UserCredentialsDto } from "./dtos/UserCredentialsDto";
 
-export default function AuthenticateView() {
-  const handleLogin = (dto: UserCredentialsDto) => {
-    console.log("login!");
-    console.log("dto: ", dto);
+export default function AuthenticationView() {
+  const handleLogin = async (dto: UserCredentialsDto) => {
+    await authenticationApi.login(dto);
   };
 
   return (

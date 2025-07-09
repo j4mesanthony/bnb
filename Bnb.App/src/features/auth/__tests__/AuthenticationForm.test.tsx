@@ -1,6 +1,6 @@
 import { describe, it, expect, afterEach, vi } from "vitest";
 import { fireEvent, render, screen, cleanup } from "@testing-library/react";
-import AuthenticateForm from "../components/AuthenticateForm";
+import AuthenticateForm from "../components/AuthenticationForm";
 
 const setup = (handleSubmit = () => {}) => {
   render(<AuthenticateForm handleSubmit={handleSubmit} />);
@@ -38,7 +38,7 @@ const fillFields = ({
     });
 };
 
-describe("AuthenticateForm", () => {
+describe("AuthenticationForm", () => {
   afterEach(() => {
     cleanup();
   });

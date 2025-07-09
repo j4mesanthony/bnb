@@ -12,6 +12,7 @@ export default defineConfig({
         "src/features/*/*.tsx",
         "src/features/*/models/**",
         "src/features/*/dtos/**",
+        "src/features/*/api/**",
       ],
     },
   },

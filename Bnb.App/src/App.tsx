@@ -1,9 +1,12 @@
-import AuthenticateView from "./features/auth/AuthenticateView";
+import AuthenticationView from "./features/auth/AuthenticationView";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 function App() {
   return (
     <>
-      <AuthenticateView />
+      <ErrorBoundary>
+        <AuthenticationView />
+      </ErrorBoundary>
     </>
   );
 }

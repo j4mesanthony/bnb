@@ -12,16 +12,8 @@ type AuthenticateFormProps = {
 export default function AuthenticateForm({
   handleSubmit,
 }: AuthenticateFormProps) {
-  const { state, dispatch, errorMsg, Actions } = useCredentialsReducer();
-
-  const isFormInvalid =
-    !state.email ||
-    !state.password ||
-    !state.confirmPassword ||
-    state.password !== state.confirmPassword ||
-    !!state.emailError ||
-    !!state.passwordError ||
-    !!state.confirmPasswordError;
+  const { state, dispatch, errorMsg, isFormInvalid, Actions } =
+    useCredentialsReducer();
 
   return (
     <>
