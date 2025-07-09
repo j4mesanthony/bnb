@@ -6,10 +6,12 @@ type AlertMessageProps = {
 };
 
 export default function AlertMessage({ children, type }: AlertMessageProps) {
+  const isTypeInvalid = !!type && !Object.values(AlertType).includes(type);
+
   const colorClasses = `${
     type === AlertType.Warning
       ? "bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-100"
-      : type === AlertType.Error
+      : type === AlertType.Error || isTypeInvalid
       ? "bg-red-200 dark:bg-red-900 text-red-800 dark:text-red-100"
       : type === AlertType.Success
       ? "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100"
