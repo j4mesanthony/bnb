@@ -156,4 +156,16 @@ describe("AuthenticationForm", () => {
 
     expect(loginButton.disabled).toBe(true);
   });
+
+  it("should show loading spinner when prop set to TRUE", async () => {
+    render(<AuthenticateForm handleSubmit={() => {}} isLoading />);
+    const spinner = screen.getByRole("status");
+    expect(spinner).toBeDefined();
+  });
+
+  it("should not show loading spinner when prop not passed", async () => {
+    render(<AuthenticateForm handleSubmit={() => {}} />);
+    const spinner = screen.queryByRole("status");
+    expect(spinner).toBeNull();
+  });
 });
