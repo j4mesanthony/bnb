@@ -6,13 +6,15 @@ export default defineConfig({
     coverage: {
       include: ["src/**"],
       exclude: [
-        "src/App.tsx",
+        "src/Root.tsx",
         "src/main.tsx",
         "src/vite-env.d.ts",
         "src/features/*/*.tsx",
         "src/features/*/models/**",
+        "src/features/*/routes/**",
         "src/features/*/dtos/**",
         "src/features/*/api/**",
+        "src/routes/**",
       ],
     },
   },
