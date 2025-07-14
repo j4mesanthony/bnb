@@ -73,7 +73,6 @@ export default function AuthenticateForm({
         Login
         {isLoading && (
           <LoadingSpinner
-            data-role="status"
             styleObj={{ position: "absolute", top: "10px", right: "10px" }}
           />
         )}

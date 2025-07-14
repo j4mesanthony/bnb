@@ -5,7 +5,7 @@ type LoadingSpinnerProps = {
 export default function LoadingSpinner({ styleObj = {} }: LoadingSpinnerProps) {
   return (
     <>
-      <div role="status" style={styleObj}>
+      <div role="status" aria-label="Loading" style={styleObj}>
         <svg
           aria-hidden="true"
           className="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600 dark:fill-gray-300"
