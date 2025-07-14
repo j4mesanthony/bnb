@@ -1,5 +1,5 @@
-import AuthenticateView from "../AuthenticateView";
+import AuthenticationView from "../AuthenticationView";
 
 export const authenticationRoutes = [
-  { index: true, Component: AuthenticateView },
+  { index: true, Component: AuthenticationView },
 ];

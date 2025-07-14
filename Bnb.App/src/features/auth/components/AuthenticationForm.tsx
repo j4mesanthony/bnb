@@ -2,26 +2,21 @@ import { AlertType } from "../../../consts/AlertType";
 import { useCredentialsReducer } from "../hooks/useCredentialsReducer";
 import AlertMessage from "../../../components/AlertMessage";
 import DataInput from "../../../components/DataInput";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 import PrimaryButton from "../../../components/PrimaryButton";
 import type { UserCredentialsDto } from "../dtos/UserCredentialsDto";
 
 type AuthenticateFormProps = {
   handleSubmit: (dto: UserCredentialsDto) => void;
+  isLoading?: boolean;
 };
 
 export default function AuthenticateForm({
   handleSubmit,
+  isLoading = false,
 }: AuthenticateFormProps) {
-  const { state, dispatch, errorMsg, Actions } = useCredentialsReducer();
-
-  const isFormInvalid =
-    !state.email ||
-    !state.password ||
-    !state.confirmPassword ||
-    state.password !== state.confirmPassword ||
-    !!state.emailError ||
-    !!state.passwordError ||
-    !!state.confirmPasswordError;
+  const { state, dispatch, errorMsg, isFormInvalid, Actions } =
+    useCredentialsReducer();
 
   return (
     <>
@@ -76,6 +71,11 @@ export default function AuthenticateForm({
         }
       >
         Login
+        {isLoading && (
+          <LoadingSpinner
+            styleObj={{ position: "absolute", top: "10px", right: "10px" }}
+          />
+        )}
       </PrimaryButton>
     </>
   );
