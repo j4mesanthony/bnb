@@ -37,7 +37,9 @@ To start the development server with hot module reloading:
 npm run dev
 ```
 
-## Running Migrations & Starting the API
+The app will be available at [http://localhost:5173](http://localhost:5173) (or the port shown in your terminal).
+
+### Running Migrations & Starting the API
 
 1. **Navigate to the API project directory:**
 
@@ -60,9 +62,7 @@ npm run dev
    dotnet run
    ```
 
-   The frontendapp will be available at [http://localhost:5173](http://localhost:5173) (or the port shown in your terminal).
-
-   The API will be available at [https://localhost:5001](https://localhost:5001) or the port specified in your launch settings.
+The API will be available at [https://localhost:7021](https://localhost:7021) or the port specified in your launch settings.
 
 ### Building for Production
 
