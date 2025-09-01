@@ -37,7 +37,32 @@ To start the development server with hot module reloading:
 npm run dev
 ```
 
-The app will be available at [http://localhost:5173](http://localhost:5173) (or the port shown in your terminal).
+## Running Migrations & Starting the API
+
+1. **Navigate to the API project directory:**
+
+   ```sh
+   cd Bnb.Core
+   ```
+
+2. **Apply database migrations:**
+
+   ```sh
+   dotnet ef database update -s ../Bnb.Api
+   ```
+
+   > Ensure your connection string is set correctly in `appsettings.Development.json`.
+
+3. **Start the API server:**
+
+   ```sh
+   cd Bnb.Api
+   dotnet run
+   ```
+
+   The frontendapp will be available at [http://localhost:5173](http://localhost:5173) (or the port shown in your terminal).
+
+   The API will be available at [https://localhost:5001](https://localhost:5001) or the port specified in your launch settings.
 
 ### Building for Production
 
