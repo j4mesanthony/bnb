@@ -1,10 +1,13 @@
 import { Outlet } from "react-router";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 function App() {
   return (
     <>
       <div className="flex justify-center items-center min-h-screen">
-        <Outlet />
+        <ErrorBoundary>
+          <Outlet />
+        </ErrorBoundary>
       </div>
     </>
   );

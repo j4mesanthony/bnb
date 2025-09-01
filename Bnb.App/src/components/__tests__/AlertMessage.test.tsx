@@ -50,4 +50,17 @@ describe("AlertMesage", () => {
       "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-100"
     );
   });
+
+  it("should render the error boundary", () => {
+    const invalidAction = 9;
+    render(
+      <AlertMessage type={invalidAction}>Something went wrong!</AlertMessage>
+    );
+    const alert = screen.getByRole("alert", { name: /Something went wrong!/i });
+
+    expect(alert).toBeDefined();
+    expect(alert.className).includes(
+      "bg-red-200 dark:bg-red-900 text-red-800 dark:text-red-100"
+    );
+  });
 });

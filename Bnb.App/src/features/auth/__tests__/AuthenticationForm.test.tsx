@@ -1,6 +1,6 @@
 import { describe, it, expect, afterEach, vi } from "vitest";
 import { fireEvent, render, screen, cleanup } from "@testing-library/react";
-import AuthenticateForm from "../components/AuthenticateForm";
+import AuthenticateForm from "../components/AuthenticationForm";
 
 const setup = (handleSubmit = () => {}) => {
   render(<AuthenticateForm handleSubmit={handleSubmit} />);
@@ -38,7 +38,7 @@ const fillFields = ({
     });
 };
 
-describe("AuthenticateForm", () => {
+describe("AuthenticationForm", () => {
   afterEach(() => {
     cleanup();
   });
@@ -155,5 +155,17 @@ describe("AuthenticateForm", () => {
     });
 
     expect(loginButton.disabled).toBe(true);
+  });
+
+  it("should show loading spinner when prop set to TRUE", async () => {
+    render(<AuthenticateForm handleSubmit={() => {}} isLoading />);
+    const spinner = screen.getByRole("status");
+    expect(spinner).toBeDefined();
+  });
+
+  it("should not show loading spinner when prop not passed", async () => {
+    render(<AuthenticateForm handleSubmit={() => {}} />);
+    const spinner = screen.queryByRole("status");
+    expect(spinner).toBeNull();
   });
 });
