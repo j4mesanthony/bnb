@@ -41,7 +41,7 @@ The app will be available at [http://localhost:5173](http://localhost:5173) (or 
 
 ### Running Migrations & Starting the API
 
-1. **Navigate to the API project directory:**
+1. **Navigate to the Bnb.Core project directory:**
 
    ```sh
    cd Bnb.Core
